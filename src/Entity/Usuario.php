@@ -3,7 +3,7 @@ namespace Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(RepositoryClass="App\Repository\UsuarioRepository")
  */
 class Usuario
 {
