@@ -39,7 +39,7 @@ class Imovel
     private $observacao;
 
     /**
-     * @ORM\Column(type="date", name="dt_cadastro", nullable=true)
+     * @ORM\Column(type="datetime", name="dt_cadastro", nullable=true)
      */
     private $dtCadastro;
 
