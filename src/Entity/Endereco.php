@@ -1,5 +1,9 @@
 <?php
-namespace Entity;
+
+namespace App\Entity;
+
+use App\Entity\Usuario;
+use App\Entity\Imovel;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,14 +74,14 @@ class Endereco
     private $dddCelular;
 
     /**
-     * @ORM\OneToOne(targetEntity="Entity\Usuario", mappedBy="endereco")
+     * @ORM\OneToOne(targetEntity="App\Entity\Usuario", mappedBy="endereco")
      */
-    private $cliente;
+    private $usuario;
 
     /**
-     * @ORM\OneToOne(targetEntity="Entity\Imovel", mappedBy="endereco")
+     * @ORM\OneToOne(targetEntity="App\Entity\Imovel", mappedBy="endereco")
      */
-    private $imovel;
+    //private $imovel;
 
     /**
      * @return mixed
@@ -274,17 +278,17 @@ class Endereco
     /**
      * @return mixed
      */
-    public function getCliente()
+    public function getUsuario()
     {
-        return $this->cliente;
+        return $this->usuario;
     }
 
     /**
-     * @param mixed $cliente
+     * @param mixed $usuario
      */
-    public function setCliente($cliente): void
+    public function setUsuario($usuario): void
     {
-        $this->cliente = $cliente;
+        $this->usuario = $usuario;
     }
 
     /**

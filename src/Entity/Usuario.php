@@ -1,9 +1,12 @@
 <?php
-namespace Entity;
+
+namespace App\Entity;
+
+use App\Entity\Endereco;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UsuarioRepository")
  */
 class Usuario
 {
@@ -55,20 +58,20 @@ class Usuario
     private $senha;
 
     /**
-     * @ORM\OneToOne(targetEntity="Entity\Endereco", inversedBy="cliente")
+     * @ORM\OneToOne(targetEntity="App\Entity\Endereco", inversedBy="usuario")
      * @ORM\JoinColumn(name="endereco_id", referencedColumnName="id", unique=true)
      */
     private $endereco;
 
     /**
-     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoLocacao", mappedBy="usuario")
      */
-    private $contratoLocacao;
+    //private $contratoLocacao;
 
     /**
-     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoAdm", mappedBy="usuario")
      */
-    private $contratoAdm;
+    //private $contratoAdm;
 
     /**
      * @return mixed
