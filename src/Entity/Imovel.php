@@ -38,15 +38,14 @@ class Imovel
     private $observacao;
 
     /**
-     * @var date
-     * @ORM\Column(type="date",nullable=true)
+     * @ORM\Column(type="datetime",nullable=true)
      */
     private $dtCadastro;
     /**
      * @ORM\OneToOne(targetEntity="Entity\Endereco", inversedBy="imovel")
      * @ORM\JoinColumn(name="endereco_id", referencedColumnName="id", unique=true)
      */
-    private $endereco;
+   // private $endereco;
 
     /**
      * @return mixed
@@ -113,25 +112,27 @@ class Imovel
     }
 
     /**
-     * @return date
+     * @return mixed
      */
-    public function getDtCadastro(): date
+    public function getDtCadastro()
     {
         return $this->dtCadastro;
     }
 
     /**
-     * @param date $dtCadastro
+     * @param mixed $dtCadastro
      */
-    public function setDtCadastro(date $dtCadastro): void
+    public function setDtCadastro($dtCadastro): void
     {
         $this->dtCadastro = $dtCadastro;
     }
 
+
+
     /**
      * @return mixed
      */
-    public function getEndereco()
+  /*  public function getEndereco()
     {
         return $this->endereco;
     }
@@ -139,10 +140,7 @@ class Imovel
     /**
      * @param mixed $endereco
      */
-    public function setEndereco($endereco): void
-    {
-        $this->endereco = $endereco;
-    }
+
 
 
 }

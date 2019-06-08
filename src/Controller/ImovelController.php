@@ -6,6 +6,7 @@ use App\Entity\Imovel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ImobiliariaController
@@ -31,10 +32,14 @@ class ImovelController extends AbstractController
     {
         $imovel = new Imovel();
         $imovel->setStatus("Alugado");
+        $imovel->setCaracteristicas("NOVO");
+
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($imovel);
         $em->flush();
+
+        return new Response();
 
     }
 
