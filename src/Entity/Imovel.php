@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * Class Imovel
  * @ORM\Entity
- * @package App\Entity
+ * @package Entity
  */
 class Imovel
 {
@@ -42,11 +43,11 @@ class Imovel
      */
     private $dt_cadastro;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Entity\Endereco", inversedBy="imovel")
-     * @JoinColumn(name="endereco_id", referencedColumnName="id")
-     */
-    private $endereco;
+    // /**
+    //  * @ORM\OneToOne(targetEntity="Entity\Endereco", inversedBy="imovel")
+    //  * @ORM\JoinColumn(name="endereco_id", referencedColumnName="id")
+    //  */
+    // private $endereco;
 
     /**
      * @return string
@@ -88,7 +89,7 @@ class Imovel
         $this->observacao = $observacao;
     }
 
-    public function getDataCadastro(): string
+    public function getDataCadastro(): Date
     {
         return $this->dataCadastro;
     }
