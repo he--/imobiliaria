@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Corretor;
 use App\Forms\UsuarioType;
 use App\Entity\Usuario;
+use App\Services\UsuarioServices;
 use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -20,11 +21,11 @@ use Symfony\Component\HttpFoundation\Request;
 class UsuarioController extends AbstractController
 {
 
+    //*@IsGranted("ROLE_ADMIN")
     /**
-     *@IsGranted("ROLE_ADMIN")
      * @Route("/usuario", name="usuario_novo")
      */
-    public function cadastroUsuario(Request $request)
+    public function cadastroUsuario(Request $request, UsuarioServices $usuarioServices)
     {
         $usuario = new Usuario();
         $form = $this->createForm(UsuarioType::class, $usuario);
@@ -32,9 +33,11 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($usuario);
+//            $em->flush();
+
+            $usuarioServices->salvar($usuario);
 
             return $this->redirectToRoute('index');
         }
