@@ -21,7 +21,6 @@ class UsuarioController extends AbstractController
 {
 
     /**
-     *@IsGranted("ROLE_ADMIN")
      * @Route("/usuario", name="usuario_novo")
      */
     public function cadastroUsuario(Request $request)
