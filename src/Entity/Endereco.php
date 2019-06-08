@@ -1,5 +1,5 @@
 <?php
-namespace Entity;
+namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -78,6 +78,8 @@ class Endereco
      * @ORM\OneToOne(targetEntity="Entity\Imovel", mappedBy="endereco")
      */
     private $imovel;
+
+
 
     /**
      * @return mixed
