@@ -1,5 +1,7 @@
 <?php
-namespace Entity;
+
+namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,12 +72,12 @@ class Endereco
     private $dddCelular;
 
     /**
-     * @ORM\OneToOne(targetEntity="Entity\Usuario", mappedBy="endereco")
+     * @ORM\OneToOne(targetEntity="App\Entity\Usuario", mappedBy="endereco")
      */
     private $cliente;
 
     /**
-     * @ORM\OneToOne(targetEntity="Entity\Imovel", mappedBy="endereco")
+     * @ORM\OneToOne(targetEntity="App\Entity\Imovel", mappedBy="endereco")
      */
     private $imovel;
 
