@@ -60,15 +60,15 @@ class Usuario
      */
     private $endereco;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
-     */
-    private $contratoLocacao;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
-     */
-    private $contratoAdm;
+//    /**
+//     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
+//     */
+//    private $contratoLocacao;
+//
+//    /**
+//     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
+//     */
+//    private $contratoAdm;
 
     /**
      * @return mixed
@@ -230,35 +230,35 @@ class Usuario
         $this->endereco = $endereco;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getContratoLocacao()
-    {
-        return $this->contratoLocacao;
-    }
-
-    /**
-     * @param mixed $contratoLocacao
-     */
-    public function setContratoLocacao($contratoLocacao): void
-    {
-        $this->contratoLocacao = $contratoLocacao;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getContratoAdm()
-    {
-        return $this->contratoAdm;
-    }
-
-    /**
-     * @param mixed $contratoAdm
-     */
-    public function setContratoAdm($contratoAdm): void
-    {
-        $this->contratoAdm = $contratoAdm;
-    }
+//    /**
+//     * @return mixed
+//     */
+//    public function getContratoLocacao()
+//    {
+//        return $this->contratoLocacao;
+//    }
+//
+//    /**
+//     * @param mixed $contratoLocacao
+//     */
+//    public function setContratoLocacao($contratoLocacao): void
+//    {
+//        $this->contratoLocacao = $contratoLocacao;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getContratoAdm()
+//    {
+//        return $this->contratoAdm;
+//    }
+//
+//    /**
+//     * @param mixed $contratoAdm
+//     */
+//    public function setContratoAdm($contratoAdm): void
+//    {
+//        $this->contratoAdm = $contratoAdm;
+//    }
 }
