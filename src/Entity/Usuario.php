@@ -1,8 +1,12 @@
 <?php
-namespace Entity;
+
+namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Class Usuario
+ * @package App\Entity
  * @ORM\Entity
  */
 class Usuario
@@ -15,41 +19,49 @@ class Usuario
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $name;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=15, nullable=false)
      */
     private $cpf_cnpj;
 
     /**
+     * @var date
      * @ORM\Column(type="date", nullable=false)
      */
     private $dt_nascimento;
 
     /**
+     * @var date
      * @ORM\Column(type="date", nullable=true)
      */
     private $dt_cadastro;
 
     /**
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     private $email;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $sexo;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $login;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $senha;
