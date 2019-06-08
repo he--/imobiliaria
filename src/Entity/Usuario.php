@@ -1,5 +1,7 @@
 <?php
-namespace Entity;
+
+namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,19 +57,19 @@ class Usuario
     private $senha;
 
     /**
-     * @ORM\OneToOne(targetEntity="Entity\Endereco", inversedBy="cliente")
+     * @ORM\OneToOne(targetEntity="App\Entity\Endereco", inversedBy="cliente")
      * @ORM\JoinColumn(name="endereco_id", referencedColumnName="id", unique=true)
      */
     private $endereco;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
-     */
+//    /**
+//     * @ORM\OneToMany(targetEntity="App\Entity\contratoLocacao", mappedBy="usuario")
+//     */
     private $contratoLocacao;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
-     */
+//    /**
+//     * @ORM\OneToMany(targetEntity="App\Entity\ContratoAdm", mappedBy="usuario")
+//     */
     private $contratoAdm;
 
     /**
