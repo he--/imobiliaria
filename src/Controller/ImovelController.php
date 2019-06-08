@@ -25,7 +25,7 @@ class ImovelController extends AbstractController
         $imovel->setStatus("ativo");
         $imovel->setCaracteristicas("sei lah");
         $imovel->setObservacao("nao sei");
-        $imovel->setDtCadastro(new Date());
+        $imovel->setDtCadastro(new \DateTime());
         $imovel->setTipoimovel("Casa");
 
         $em = $this->getDoctrine()->getManager();
