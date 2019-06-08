@@ -29,4 +29,9 @@ class UsuarioRepository extends ServiceEntityRepository
         $em->persist($usuario);
         $em->flush();
     }
+
+    public function atualizar(Usuario $usuario)
+    {
+
+    }
 }

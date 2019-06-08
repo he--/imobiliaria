@@ -33,9 +33,6 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($usuario);
-//            $em->flush();
 
             $usuarioServices->salvar($usuario);
 
@@ -52,17 +49,6 @@ class UsuarioController extends AbstractController
      */
     public function listarUsuarios(Request $request)
     {
-        $user = new Corretor();
-        $user->setLogin('helio');
-        $user->setRoles([true ? 'ROLE_ADMIN' : 'ROLE_USER']);
-
-        $user->setPassword('ZkCCqGmNQXOeL1avsq2OWv2BSKLqHE33c2aolQ1nFxg');
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
-
-
-
         $em = $this->getDoctrine()->getManager();
         $usuarios = $em->getRepository(Usuario::class)->findAll();
 
@@ -74,7 +60,7 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/editar/{id}", name="editar_usuario")
      */
-    public function editarUsuario(int $id, Request $request)
+    public function editarUsuario(int $id, Request $request, UsuarioServices $usuarioServices)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository(Usuario::class)->find($id);
@@ -89,9 +75,8 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->merge($usuario);
-            $em->flush();
+
+            $usuarioServices->salvar($usuario);
 
             return $this->redirectToRoute('listar_usuarios');
         }
