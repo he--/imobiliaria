@@ -4,30 +4,30 @@
 namespace App\Repository;
 
 
-use App\Entity\Usuario;
+use App\Entity\Imovel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class UsuarioRepository extends ServiceEntityRepository
+class ImovelRepository extends ServiceEntityRepository
 {
     /**
-     * UsuarioRepository constructor.
+     * ImovelRepository constructor.
      * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Usuario::class);
+        parent::__construct($registry, Imovel::class);
     }
 
     /**
-     * @param Usuario $usuario
+     * @param Imovel $imovel
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function salvar(Usuario $usuario)
+    public function salvar(Imovel $imovel)
     {
         $em = $this->getEntityManager();
-        $em->persist($usuario);
+        $em->persist($imovel);
         $em->flush();
     }
 
@@ -39,8 +39,8 @@ class UsuarioRepository extends ServiceEntityRepository
     public function deletar(int $id)
     {
         $em = $this->getEntityManager();
-        $usuario = $em->getRepository(Usuario::class)->find($id);
-        $em->remove($usuario);
+        $imovel = $em->getRepository(Imovel::class)->find($id);
+        $em->remove($imovel);
         $em->flush();
     }
 
