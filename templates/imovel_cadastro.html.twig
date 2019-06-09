@@ -8,6 +8,30 @@
 
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 {{ form_start(form) }}
+                <div class="row">
+                        <div class="col-sm-5">
+                                {{ form_row(form.status) }}
+                        </div>
+                        <div class="col-sm-1">
+                                {{ form_row(form.caracteristicas) }}
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-sm-5">
+                                {{ form_row(form.observacao) }}
+                        </div>
+                        <div class="col-sm-2">
+                                {{ form_row(form.tipoImovel) }}
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-sm-2">
+                                {{ form_row(form.dtCadastro) }}
+                        </div>
+                        <div class="col-sm-2">
+                                {{ form_row(form.dtCadastro) }}
+                        </div>
+                </div>
                 {{ form_widget(form) }}
 
                 <input class="btn btn-success btn-icon-split" type="submit"/>
