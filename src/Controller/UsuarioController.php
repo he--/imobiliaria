@@ -4,14 +4,13 @@
 namespace App\Controller;
 
 use App\Entity\Corretor;
-use App\Forms\UsuarioType;
 use App\Entity\Usuario;
-use phpDocumentor\Reflection\DocBlock\Tags\Throws;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Forms\UsuarioType;
+use App\Service\UsuarioService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class UsuarioController
@@ -21,20 +20,16 @@ class UsuarioController extends AbstractController
 {
 
     /**
-     *@IsGranted("ROLE_ADMIN")
-     * @Route("/usuario", name="usuario_novo")
+     * @Route("/usuario/cadastro", name="cadastro_usuario")
      */
-    public function cadastroUsuario(Request $request)
+    public function cadastroUsuario(Request $request, UsuarioService $usuarioService)
     {
         $usuario = new Usuario();
         $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
-
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();
+            $usuarioService->salvar($usuario);
 
             return $this->redirectToRoute('index');
         }
@@ -45,7 +40,7 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("/listar", name="listar_usuarios")
+     * @Route("/usuario/listar", name="listar_usuarios")
      */
     public function listarUsuarios(Request $request)
     {
@@ -69,9 +64,9 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("/editar/{id}", name="editar_usuario")
+     * @Route("/usuario/editar/{id}", name="editar_usuario")
      */
-    public function editarUsuario(int $id, Request $request)
+    public function editarUsuario(int $id, Request $request, UsuarioService $usuarioService)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository(Usuario::class)->find($id);
@@ -85,11 +80,14 @@ class UsuarioController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $usuario = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->merge($usuario);
-            $em->flush();
+            try{
+                $usuario = $form->getData();
+                $usuarioService->salvar($usuario);
 
+                $this->addFlash('success', 'Usuario '.$usuario->getNome().' alterado com sucesso!!!');
+            }catch (\Exception $e){
+                $this->addFlash('error', 'Erro ao tentar alterar o usuário: '.$e->getMessage());
+            }
             return $this->redirectToRoute('listar_usuarios');
         }
 
@@ -99,14 +97,11 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("/deletar/{id}", name="deletar_usuario")
+     * @Route("/usuario/deletar/{id}", name="deletar_usuario")
      */
-    public function deletarUsuario(int $id, Request $request)
+    public function deletarUsuario(int $id, Request $request, UsuarioService $usuarioService)
     {
-        $em = $this->getDoctrine()->getManager();
-        $usuario = $em->getRepository(Usuario::class)->find($id);
-        $em->remove($usuario);
-        $em->flush();
+        $usuarioService->deletar($id);
         $this->addFlash('success', 'Usuario de id:'.$id.' deletado com sucesso!!!');
 
         return $this->redirectToRoute('listar_usuarios');
