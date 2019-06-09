@@ -25,4 +25,14 @@ class UsuarioService
     {
         $this->usuarioRepository->salvar($usuario);
     }
+
+    public function editar(Usuario $usuario)
+    {
+        $this->usuarioRepository->editar($usuario);
+    }
+
+    public function deletar(Usuario $usuario)
+    {
+        $this->usuarioRepository->deletar($usuario);
+    }
 }

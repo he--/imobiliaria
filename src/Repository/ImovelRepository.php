@@ -4,43 +4,43 @@
 namespace App\Repository;
 
 
-use App\Entity\Usuario;
+use App\Entity\Imovel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class UsuarioRepository extends ServiceEntityRepository
+class ImovelRepository extends ServiceEntityRepository
 {
 
-    public  function __construct(RegistryInterface $registry)
+    public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Usuario::class);
+        parent::__construct($registry, Imovel::class);
     }
 
     /**
      * @return EntityManager
      */
 
-    public function salvar(Usuario $usuario)
+    public function salvar(Imovel $imovel)
     {
         $em = $this->getEntityManager();
-        $em->persist($usuario);
+        $em->persist($imovel);
         $em->flush();
     }
 
-    public function editar(Usuario $usuario)
+    public function editar(Imovel $imovel)
     {
         $em = $this->getEntityManager();
-        $em->merge($usuario);
+        $em->merge($imovel);
         $em->flush();
-
     }
 
-    public function deletar(Usuario $usuario)
+    public function deletar(Imovel $imovel)
     {
         $em = $this->getEntityManager();
-        $em->remove($usuario);
+        $em->remove();
         $em->flush();
     }
+
 }
