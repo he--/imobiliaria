@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Forms;
 
 use App\Entity\Imovel;
@@ -26,7 +25,7 @@ class ImovelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-//            ->setAction('../usuario')
+//            ->setAction('../imovel')
 //            ->setMethod('POST')
             ->add('status', ChoiceType::class, [
                 'label' => 'Status',

@@ -47,6 +47,15 @@ class Imovel
      */
     private $endereco;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoLocacao", mappedBy="imovel")
+     */
+    private $contratoLocacao;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoAdm", mappedBy="imovel")
+     */
+    private $contratoAdm;
 
 
     /**
@@ -161,13 +170,35 @@ class Imovel
         $this->endereco = $endereco;
     }
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="imovel")
-//     */
-//    private $contratoLocacao;
-//
-//    /**
-//     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="imovel")
-//     */
-//    private $contratoAdm;
+    /**
+     * @return mixed
+     */
+    public function getContratoLocacao()
+    {
+        return $this->contratoLocacao;
+    }
+
+    /**
+     * @param mixed $contratoLocacao
+     */
+    public function setContratoLocacao(ContratoLocacao $contratoLocacao): void
+    {
+        $this->contratoLocacao = $contratoLocacao;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContratoAdm()
+    {
+        return $this->contratoAdm;
+    }
+
+    /**
+     * @param mixed $contratoAdm
+     */
+    public function setContratoAdm(ContratoAdm $contratoAdm): void
+    {
+        $this->contratoAdm = $contratoAdm;
+    }
 }

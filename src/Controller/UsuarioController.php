@@ -44,11 +44,10 @@ class UsuarioController extends AbstractController
             'form'=>$form->createview()
             ]
             );
-
     }
 
         /**
-     * @Route("/listar", name="listar_usuarios")
+     * @Route("/usuario/listar", name="listar_usuarios")
      */
     public function listarUsuarios(Request $request)
     {
@@ -115,3 +114,4 @@ class UsuarioController extends AbstractController
         return $this->redirectToRoute('listar_usuarios');
     }
 }
+

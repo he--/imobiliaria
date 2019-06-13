@@ -3,7 +3,6 @@
 
 namespace App\Service;
 
-
 use App\Entity\Usuario;
 use App\Repository\UsuarioRepository;
 
