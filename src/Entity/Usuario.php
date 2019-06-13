@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -53,14 +54,14 @@ class Usuario
     private $endereco;
 
     /**
-//     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
-//     */
-//    private $contratoLocacao;
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoLocacao", mappedBy="usuario")
+     */
+    private $contratoLocacao;
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
-//     */
-//    private $contratoAdm;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoAdm", mappedBy="usuario")
+     */
+    private $contratoAdm;
 
     /**
      * @var string
@@ -197,6 +198,22 @@ class Usuario
     }
 
     /**
+     * @return string
+     */
+    public function getTipoUsuario(): ?string
+    {
+        return $this->tipoUsuario;
+    }
+
+    /**
+     * @param string $tipoUsuario
+     */
+    public function setTipoUsuario(string $tipoUsuario): void
+    {
+        $this->tipoUsuario = $tipoUsuario;
+    }
+
+    /**
      * @return mixed
      */
     public function getContratoLocacao()
@@ -207,7 +224,7 @@ class Usuario
     /**
      * @param mixed $contratoLocacao
      */
-    public function setContratoLocacao($contratoLocacao): void
+    public function setContratoLocacao(ContratoLocacao $contratoLocacao): void
     {
         $this->contratoLocacao = $contratoLocacao;
     }
@@ -223,24 +240,9 @@ class Usuario
     /**
      * @param mixed $contratoAdm
      */
-    public function setContratoAdm($contratoAdm): void
+    public function setContratoAdm(ContratoAdm $contratoAdm): void
     {
         $this->contratoAdm = $contratoAdm;
     }
-
-    /**
-     * @return string
-     */
-    public function getTipoUsuario(): ?string
-    {
-        return $this->tipoUsuario;
-    }
-
-    /**
-     * @param string $tipoUsuario
-     */
-    public function setTipoUsuario(string $tipoUsuario): void
-    {
-        $this->tipoUsuario = $tipoUsuario;
-    }
 }
+

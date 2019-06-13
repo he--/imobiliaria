@@ -16,9 +16,7 @@ class ImobiliariaController extends AbstractController
      */
     public function index()
     {
-
         return $this->render('index.html.twig');
-
     }
 
     /**
@@ -26,8 +24,6 @@ class ImobiliariaController extends AbstractController
      */
     public function dashboard()
     {
-
         return $this->render('imobiliaria.html.twig');
-
     }
 }

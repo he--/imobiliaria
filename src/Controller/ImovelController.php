@@ -1,51 +1,66 @@
 <?php
 
-
 namespace App\Controller;
 
-
+use App\Entity\Corretor;
 use App\Entity\Imovel;
 use App\Forms\ImovelType;
+use App\Service\ImovelService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * Class ImovelController
+ * @package App\Controller
+ */
 class ImovelController extends AbstractController
 {
-
     /**
-     * @Route("/imovel/cadastro", name="cadasto_imovel")
-     *
+     * @Route("imovel/cadastro", name="imovel_cadastro")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function cadastroImovel(Request $request)
+    public function cadastroImovel(Request $request, ImovelService $imovelService)
     {
 
-        $imovel = new Imovel();
-        $form = $this->createForm(ImovelType::class, $imovel);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
+       $imovel = new Imovel();
+       $form = $this->createForm(ImovelType::class, $imovel);
+       $form->handleRequest($request);
+       if ($form->isSubmitted()) {
             $imovel = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($imovel);
-            $em->flush();
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($imovel);
+//            $em->flush();
+
+            $imovelService->salvar($imovel);
 
             return $this->redirectToRoute('index');
-        }
+       }
 
-        return $this->render('imovel_cadastro.html.twig', [
-            'form' => $form->createView()
-        ]);
+       return $this->render('imovel_cadastro.html.twig' , [
+                'form'=>$form->createview()
+            ]
+       );
 
     }
 
     /**
      * @Route("/imovel/listar", name="listar_imoveis")
      */
-    public function listarImoveis()
+
+    public function listarImoveis(Request $request)
     {
+        $user = new Corretor();
+        $user->setLogin('helio');
+        $user->setRoles([true ? 'ROLE_ADMIN' : 'ROLE_USER']);
+
+        $user->setPassword('ZkCCqGmNQXOeL1avsq2OWv2BSKLqHE33c2aolQ1nFxg');
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+
+
         $em = $this->getDoctrine()->getManager();
         $imoveis = $em->getRepository(Imovel::class)->findAll();
 
@@ -55,32 +70,50 @@ class ImovelController extends AbstractController
     }
 
     /**
-     * @Route("/imovel/portifolios", name="listar_portifolios")
+     * @Route("/editar/{id}", name="editar_imovel")
      */
-    public function imoveisPortifolios()
+    public function editarImovel(int $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $imoveis = $em->getRepository(Imovel::class)->findAll();
+        $imovel = $em->getRepository(Imovel::class)->find($id);
 
-        return $this->render('listar_portifolios.html.twig', [
-            'imoveis' => $imoveis
+        if (!$imovel) {
+            throw new \Exception('Imovel não encontrado');
+        }
+
+        $form = $this->createForm(ImovelType::class, $imovel);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $imovel = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->merge($imovel);
+            $em->flush();
+
+            return $this->redirectToRoute('listar_imoveis');
+        }
+
+        return $this->render('imovel_cadastro.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/imovel/visualizar/{id}", name="imovel_visualizar")
+     * @Route("/deletar/{id}", name="deletar_imovel")
      */
-    public function imovelVisualizar(Request $request)
+    public function deletarImovel(int $id, Request $request)
     {
-        $id = $request->get('id');
+//        $imovel = new Imovel();
+//        $imovel = $this->getRepository(Imovel::class)->find($id);
+//        $imovelService->deletar($imovel);
+
         $em = $this->getDoctrine()->getManager();
         $imovel = $em->getRepository(Imovel::class)->find($id);
+        $em->remove($imovel);
+        $em->flush();
+        $this->addFlash('success', 'Imovel de id:'.$id.' deletado com sucesso!!!');
 
-        return $this->render('imovel_visualizar.html.twig', [
-            'imovel' => $imovel
-        ]);
+        return $this->redirectToRoute('listar_imoveis');
     }
-
-
-
 }
