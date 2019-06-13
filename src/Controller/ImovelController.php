@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use App\Entity\Imovel;
 use App\Forms\ImovelType;
+use App\Repository\ImovelRepository;
+use App\Services\ImovelServices;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +21,7 @@ class ImovelController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function cadastroImovel(Request $request)
+    public function cadastroImovel(Request $request, ImovelServices $imovelServices)
     {
 
         $imovel = new Imovel();
@@ -28,9 +30,7 @@ class ImovelController extends AbstractController
 
         if ($form->isSubmitted()) {
             $imovel = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($imovel);
-            $em->flush();
+            $imovelServices->salvar($imovel);
 
             return $this->redirectToRoute('index');
         }
@@ -53,6 +53,35 @@ class ImovelController extends AbstractController
             'imoveis' => $imoveis
         ]);
     }
+
+    /**
+     * @Route("/imovel/{id}", name="editar_imovel")
+     */
+    public function editarImovel(int $id, Request $request, ImovelServices $imovelServices)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $imovel = $em->getRepository(Imovel::class)->find($id);
+
+        if (!$imovel) {
+            throw new \Exception('Imovel não encontrado');
+        }
+
+        $form = $this->createForm(ImovelType::class, $imovel);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $imovel = $form->getData();
+            $imovelServices->salvar($imovel);
+
+            return $this->redirectToRoute('listar_imoveis');
+        }
+
+        return $this->render('imovel_cadastro.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
 
     /**
      * @Route("/imovel/portifolios", name="listar_portifolios")
@@ -81,6 +110,15 @@ class ImovelController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/deletar/{id}", name="deletar_imovel")
+     */
+    public function deletarIMovel(int $id, ImovelServices $imovelServices)
+    {
+        $imovelServices->deletar($id);
+        $this->addFlash('success', 'Imovel de id:'.$id.' deletado com sucesso!!!');
 
+        return $this->redirectToRoute('listar_imoveis');
+    }
 
 }
