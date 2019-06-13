@@ -33,7 +33,6 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-
             $usuarioServices->salvar($usuario);
 
             return $this->redirectToRoute('index');
@@ -70,12 +69,10 @@ class UsuarioController extends AbstractController
         }
 
         $form = $this->createForm(UsuarioType::class, $usuario);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-
             $usuarioServices->salvar($usuario);
 
             return $this->redirectToRoute('listar_usuarios');
@@ -87,14 +84,11 @@ class UsuarioController extends AbstractController
     }
 
     /**
-     * @Route("/deletar/{id}", name="deletar_usuario")
+     * @Route("/usuario/deletar/{id}", name="deletar_usuario")
      */
-    public function deletarUsuario(int $id, Request $request)
+    public function deletarUsuario(int $id, UsuarioServices $usuarioServices)
     {
-        $em = $this->getDoctrine()->getManager();
-        $usuario = $em->getRepository(Usuario::class)->find($id);
-        $em->remove($usuario);
-        $em->flush();
+        $usuarioServices->deletar($id);
         $this->addFlash('success', 'Usuario de id:'.$id.' deletado com sucesso!!!');
 
         return $this->redirectToRoute('listar_usuarios');

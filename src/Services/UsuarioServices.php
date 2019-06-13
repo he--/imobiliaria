@@ -37,8 +37,8 @@ class UsuarioServices
         $this->usuarioRepository->salvar($usuario);
     }
 
-    public function atualizar(Usuario $usuario)
+    public function deletar(int $id)
     {
-        $this->usuarioRepository->atualizar($usuario);
+        $this->usuarioRepository->deletar($id);
     }
 }
