@@ -23,77 +23,77 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-                <div class="card-body">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Portifólio de Imóveis</h1>
-                    </div>
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Portifólio de Imóveis</h1>
+            </div>
 
-                    <div class="row">
+            <div class="row">
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        {% for imovel in imoveis %}
+                <!-- Earnings (Monthly) Card Example -->
+                {% for imovel in imoveis %}
 
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                {% if imovel.tipoImovel|upper == 'CASA' %}
-                                    <div class="card border-left-primary shadow h-100 py-2">
-                                {% else %}
-                                        <div class="card border-left-success shadow h-100 py-2">
-                                {% endif %}
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ imovel.tipoImovel }}</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{imovel.caracteristicas }}</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{imovel.observacao}}</div>
-                                            </div>
-                                                <a href="../imovel/visualizar/{{imovel.id}}">
-                                                    <i class="fas fa-info-circle"></i>
-                                                </a>
-                                        </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    {% if imovel.tipoImovel|upper == 'CASA' %}
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        {% else %}
+                        <div class="card border-left-success shadow h-100 py-2">
+                            {% endif %}
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ imovel.tipoImovel }}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{imovel.caracteristicas }}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{imovel.observacao}}</div>
                                     </div>
+                                    <a href="../imovel/visualizar/{{imovel.id}}">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
                                 </div>
                             </div>
-                        {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
 
-        {#                        {% for imovel in imoveis %}#}
-{#                            <div class="card mb-4 py-3 border-left-success">#}
-{#                                <div class="card-body">#}
-{#                                    <p> {{imovel.status}} </p>#}
-{#                                    <p> {{imovel.endereco.logradouro}} </p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        {% endfor %}#}
+                    {#                        {% for imovel in imoveis %}#}
+                    {#                            <div class="card mb-4 py-3 border-left-success">#}
+                    {#                                <div class="card-body">#}
+                    {#                                    <p> {{imovel.status}} </p>#}
+                    {#                                    <p> {{imovel.endereco.logradouro}} </p>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        {% endfor %}#}
 
                 </div>
-</div>
+            </div>
 
-{#</div>#}
+            {#</div>#}
 
 
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Bootstrap core JavaScript-->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="js/sb-admin-2.min.js"></script>
 
-<!-- Page level plugins -->
-<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+            <!-- Page level plugins -->
+            <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+            <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-<!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>
+            <!-- Page level custom scripts -->
+            <script src="js/demo/datatables-demo.js"></script>
 
-<!-- End of Main Content -->
+            <!-- End of Main Content -->
 
-{% include "footer.html.twig" %}s
+            {% include "footer.html.twig" %}s
 
 
 

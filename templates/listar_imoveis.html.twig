@@ -20,6 +20,7 @@
                                                 <th>Data Cadastro</th>
                                                 <th>Bairro</th>
                                                 <th>Rua</th>
+                                                <th>Editar/Deletar</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
@@ -31,31 +32,37 @@
                                                 <th>Data Cadastro</th>
                                                 <th>Bairro</th>
                                                 <th>Rua</th>
+                                                <th>Editar/Deletar</th>
                                         </tr>
                                         </tr>
                                         </tfoot>
                                         <tbody>
                                         </tbody>
-                                         {% for imovel in imoveis %}
-                                        <tr>
-                                                <td>{{ imovel.status }}</td>
-                                                <td>{{ imovel.caracteristicas }}</td>
-                                                <td>{{ imovel.observacao }}</td>
-                                                <td>{{ imovel.tipoImovel }}</td>
-                                                <td>{{ imovel.dtCadastro|date("m/d/Y") }}</td>
-                                                <td>{{ imovel.endereco.bairro }}</td>
-                                                <td>{{ imovel.endereco.logradouro }}</td>
-                                                <td><a href="#" class="btn btn-success btn-circle btn-sm">
-                                                                <i class="fas fa-check"></i>
-                                                        </a></td>
-                                        </tr>
+                                        {% for imovel in imoveis %}
+                                                <tr>
+                                                        <td>{{ imovel.status }}</td>
+                                                        <td>{{ imovel.caracteristicas }}</td>
+                                                        <td>{{ imovel.observacao }}</td>
+                                                        <td>{{ imovel.tipoImovel }}</td>
+                                                        <td>{{ imovel.dtCadastro|date("m/d/Y") }}</td>
+                                                        <td>{{ imovel.endereco.bairro }}</td>
+                                                        <td>{{ imovel.endereco.logradouro }}</td>
+                                                        <td>
+                                                                <a href="{{ path('editar_imovel', { 'id': imovel.id}) }}" class="btn btn-success btn-circle btn-sm">
+                                                                        <i class="fas fa-check"></i>
+                                                                </a>
+                                                                <a href="{{ path('deletar_imovel', { 'id': imovel.id}) }}" class="btn btn-danger btn-circle btn-sm">
+                                                                        <i class="fas fa-trash"></i>
+                                                                </a>
+                                                        </td>
+                                                </tr>
                                         {% endfor %}
                                 </table>
                         </div>
                 </div>
         </div>
 
-        </div>
+</div>
 </div>
 
 {#</div>#}
