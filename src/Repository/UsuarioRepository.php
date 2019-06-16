@@ -27,4 +27,35 @@ class UsuarioRepository extends ServiceEntityRepository
         $em->persist($usuario);
         $em->flush();
     }
+
+    public function editar(Usuario $usuario)
+    {
+        $em = $this->getEntityManager();
+        $em->merge($usuario);
+        $em->flush();
+    }
+
+    /**
+     * @param Usuario $usuario
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function deletar(Usuario $usuario)
+    {
+        $em = $this->getEntityManager();
+        $em->remove($usuario);
+        $em->flush();
+    }
+
+    public function findById($id)
+    {
+        $em = $this->getEntityManager();
+        return $em->getRepository(Usuario::class)->find($id);
+    }
+
+    public function findAll()
+    {
+        $em = $this->getEntityManager();
+        return $em->getRepository(Usuario::class)->findAll();
+    }
 }
