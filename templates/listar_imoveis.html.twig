@@ -47,7 +47,12 @@
                                                 <td>{{ imovel.endereco.logradouro }}</td>
                                                 <td><a href="#" class="btn btn-success btn-circle btn-sm">
                                                                 <i class="fas fa-check"></i>
-                                                        </a></td>
+                                                        </a>
+                                                        <a href="{{ path('deletar_imovel', {'id': imovel.id}) }}" class="btn btn-danger btn-circle btn-sm">
+                                                                <i class="fas fa-trash"></i>
+                                                        </a>
+                                                </td>
+
                                         </tr>
                                         {% endfor %}
                                 </table>
