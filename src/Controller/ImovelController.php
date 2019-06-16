@@ -9,6 +9,8 @@ use App\Forms\ImovelType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\RepositorioImovel;
+use App\Services\ServicoImovel;
 
 class ImovelController extends AbstractController
 {
@@ -19,6 +21,8 @@ class ImovelController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
+
+   // $servicoImovel =
     public function cadastroImovel(Request $request)
     {
 
@@ -81,6 +85,49 @@ class ImovelController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/imovel/deletar/{id}", name="deletar_imovel")
+     */
+    public function imovelDeleter(int $id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $imovel = $em->getRepository(Imovel::class)->find($id);
+        $em->remove($imovel);
+        $em->flush();
+        $this->addFlash('success', 'Imovel de id:'.$id.' deletado com sucesso!!!');
+
+        return $this->redirectToRoute('listar_imoveis');
+    }
+
+    /**
+     * @Route("/imovel/editar/{id}", name="editar_imovel")
+     */
+    public function editarImovel(int $id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $imovel = $em->getRepository(Imovel::class)->find($id);
+
+        if (!$imovel) {
+            throw new \Exception('Imovel não encontrado');
+        }
+
+        $form = $this->createForm(ImovelType::class, $imovel);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $imovel = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->merge($imovel);
+            $em->flush();
+
+            return $this->redirectToRoute('listar_imoveis');
+        }
+
+        return $this->render('imovel_cadastro.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 
 
 }

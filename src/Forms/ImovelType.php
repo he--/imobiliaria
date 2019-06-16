@@ -41,10 +41,10 @@ class ImovelType extends AbstractType
 
             ])
             ->add('caracteristicas', TextType::class, [
-                'label' => 'Caracterisiticas do Imovel',
+                'label' => 'Caracteristicas do Imovel',
             ])
             ->add('observacao', TextType::class, [
-                'label' => 'Observações Geral',
+                'label' => 'Observações Gerais',
             ])
             ->add('tipoImovel', ChoiceType::class, [
                 'empty_data' => 'Casa',

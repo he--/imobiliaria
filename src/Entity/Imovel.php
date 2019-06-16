@@ -32,6 +32,18 @@ class Imovel
     private $observacao;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoAdm", mappedBy="imovel")
+     */
+    private $contratoAdm;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoLocacao", mappedBy="imovel")
+     */
+    private $contratoLocacao;
+
+
+    /**
      * @ORM\Column(type="string",name="tipo_imovel", length=150, nullable=true)
      */
     private $tipoImovel;
@@ -45,13 +57,15 @@ class Imovel
      * @ORM\OneToOne(targetEntity="App\Entity\Endereco", inversedBy="imovel", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="id_endereco", referencedColumnName="id", unique=true)
      */
+
+
     private $endereco;
-
-
 
     /**
      * @return mixed
      */
+
+
     public function getId()
     {
         return $this->id;
