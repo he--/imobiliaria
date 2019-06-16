@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -12,9 +12,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ImobiliariaController extends AbstractController
 {
     /**
-     * @Route("index")
+     * @Route("/", name="index")
      */
     public function index()
+    {
+
+        return $this->render('index.html.twig');
+
+    }
+
+    /**
+     * @Route("dashboard", name="dashboard")
+     */
+    public function dashboard()
     {
 
         return $this->render('imobiliaria.html.twig');
