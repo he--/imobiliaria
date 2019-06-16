@@ -38,7 +38,7 @@ class UsuarioType extends AbstractType
                 ]
             ])
             ->add('sexo', TextType::class, [
-                'label' => 'Sexto',
+                'label' => 'Sexo',
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
