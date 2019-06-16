@@ -69,7 +69,7 @@
                                                 <td>{{ usuario.sexo }}</td>
                                                 <td>{{ usuario.dtCadastro|date("m/d/Y") }}</td>
                                                 <td><a href="{{ path('editar_usuario', { 'id': usuario.id}) }}" class="btn btn-success btn-circle btn-sm">
-                                                                <i class="fas fa-check"></i>
+                                                                <i class="fas fa-edit"></i>
                                                     </a>
                                                     <a href="{{ path('deletar_usuario', { 'id': usuario.id}) }}" class="btn btn-danger btn-circle btn-sm">
                                                         <i class="fas fa-trash"></i>
