@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * Classe controller do usuário
+ */
 namespace App\Controller;
 
 use App\Entity\Corretor;
