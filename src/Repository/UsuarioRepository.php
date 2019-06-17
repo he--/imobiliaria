@@ -26,4 +26,26 @@ class UsuarioRepository extends ServiceEntityRepository
         $em->persist($usuario);
         $em->flush();
     }
+
+    /**
+     * @return EntityManager
+     */
+
+    public function editar (Usuario $usuario)
+    {
+        $em = $this->getEntityManager();
+        $em->merge($usuario);
+        $em->flush();
+    }
+
+    /**
+     * @return EntityManager
+     */
+
+    public function deletar (Usuario $usuario)
+    {
+        $em = $this->getEntityManager();
+        $em->remove($usuario);
+        $em->flush();
+    }
 }

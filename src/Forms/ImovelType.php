@@ -26,7 +26,7 @@ class ImovelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-//            ->setAction('../usuario')
+//            ->setAction('../cadastro_imovel')
 //            ->setMethod('POST')
             ->add('status', ChoiceType::class, [
                 'label' => 'Status',

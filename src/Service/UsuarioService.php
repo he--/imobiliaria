@@ -25,5 +25,17 @@ class UsuarioService
         $this->usuarioRepository->salvar($usuario);
     }
 
+    public function editar (Usuario $imovel)
+    {
+        $this->usuarioRepository->editar($imovel);
+    }
+
+    public function deletar (Usuario $imovel)
+    {
+        $this->usuarioRepository->deletar($imovel);
+    }
+
+
+
 
 }
