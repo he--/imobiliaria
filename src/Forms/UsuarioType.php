@@ -5,6 +5,7 @@ namespace App\Forms;
 
 use App\Entity\Usuario;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -37,8 +38,12 @@ class UsuarioType extends AbstractType
                     'placeholder' => '_ _ _ . _ _ _ . _ _ _ - _ _'
                 ]
             ])
-            ->add('sexo', TextType::class, [
-                'label' => 'Sexto',
+            ->add('sexo', ChoiceType::class, [
+                'label' => 'Sexo',
+                'choices' => [
+                    'Masculino' => 'M',
+                    'Feminino' => 'F'
+                ],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
