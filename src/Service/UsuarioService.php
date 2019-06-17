@@ -27,6 +27,9 @@ class UsuarioService
         return $usuario;
     }
 
+    /**
+     * @return array Imovel
+     */
     public function findAll()
     {
         return $this->usuarioRepository->findAll();

@@ -36,7 +36,7 @@ class UsuarioController extends AbstractController
             $usuario = $form->getData();
             $usuarioService->salvar($usuario);
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('listar_usuarios');
         }
 
         return $this->render('usuario_cadastro.html.twig', [

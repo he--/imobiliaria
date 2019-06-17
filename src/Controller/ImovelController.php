@@ -43,7 +43,7 @@ class ImovelController extends AbstractController
             $imovel = $form->getData();
             $service->salvar($imovel);
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('listar_imoveis');
         }
 
         return $this->render('imovel_cadastro.html.twig', [
@@ -94,6 +94,56 @@ class ImovelController extends AbstractController
         return $this->render('imovel_visualizar.html.twig', [
             'imovel' => $imovel
         ]);
+    }
+
+    /**
+     * @Route("/imovel/editar/{id}", name="editar_imovel")
+     * @param int $id
+     * @param Request $request
+     * @param ImovelService $service
+     * @return RedirectResponse|Response
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws ServiceException
+     */
+    public function editarImovel(int $id, Request $request, ImovelService $service)
+    {
+        $imovel = $service->findById($id);
+        $form = $this->createForm(ImovelType::class, $imovel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $service->editar($id, $form->getData());
+            return $this->redirectToRoute('listar_imoveis');
+        }
+
+        return $this->render('imovel_cadastro.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/imovel/deletar/{id}", name="deletar_imovel")
+     * @param int $id
+     * @param Request $request
+     * @param ImovelService $service
+     * @return RedirectResponse|Response
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws ServiceException
+     */
+    public function deletarImovel(int $id, Request $request, ImovelService $service)
+    {
+        try
+        {
+            $service->deletar($id);
+            $this->addFlash('success', 'Imóvel de id:'.$id.' deletado com sucesso!!!');
+        }
+        catch (ServiceException $ex)
+        {
+            $this->addFlash('error', $ex->getMessage());
+        }
+        return $this->redirectToRoute('listar_imoveis');
     }
 
 }

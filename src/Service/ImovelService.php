@@ -61,7 +61,7 @@ class ImovelService
      * @throws OptimisticLockException
      * @throws ServiceException
      */
-    public function editar($id, Usuario $imovel)
+    public function editar($id, Imovel $imovel)
     {
         $imovelBD = $this->repository->findById($id);
         if ($imovelBD == null)
