@@ -3,11 +3,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Corretor;
 use App\Exception\ServiceException;
 use App\Forms\UsuarioType;
 use App\Entity\Usuario;
 use App\Service\UsuarioService;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,9 @@ class UsuarioController extends AbstractController
 
     /**
      * @Route("/usuario", name="usuario_novo")
+     * @param Request $request
+     * @param UsuarioService $usuarioService
+     * @return RedirectResponse|Response
      */
     public function cadastroUsuario(Request $request, UsuarioService $usuarioService)
     {
@@ -42,6 +46,9 @@ class UsuarioController extends AbstractController
 
     /**
      * @Route("/listar", name="listar_usuarios")
+     * @param Request $request
+     * @param UsuarioService $service
+     * @return Response
      */
     public function listarUsuarios(Request $request, UsuarioService $service)
     {
@@ -54,6 +61,11 @@ class UsuarioController extends AbstractController
 
     /**
      * @Route("/editar/{id}", name="editar_usuario")
+     * @param int $id
+     * @param Request $request
+     * @param UsuarioService $service
+     * @return RedirectResponse|Response
+     * @throws ServiceException
      */
     public function editarUsuario(int $id, Request $request, UsuarioService $service)
     {
@@ -73,6 +85,10 @@ class UsuarioController extends AbstractController
 
     /**
      * @Route("/deletar/{id}", name="deletar_usuario")
+     * @param int $id
+     * @param Request $request
+     * @param UsuarioService $service
+     * @return RedirectResponse
      */
     public function deletarUsuario(int $id, Request $request, UsuarioService $service)
     {

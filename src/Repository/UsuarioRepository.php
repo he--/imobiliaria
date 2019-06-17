@@ -28,6 +28,11 @@ class UsuarioRepository extends ServiceEntityRepository
         $em->flush();
     }
 
+    /**
+     * @param Usuario $usuario
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function editar(Usuario $usuario)
     {
         $em = $this->getEntityManager();
@@ -47,12 +52,19 @@ class UsuarioRepository extends ServiceEntityRepository
         $em->flush();
     }
 
+    /**
+     * @param int $id
+     * @return Usuario
+     */
     public function findById($id)
     {
         $em = $this->getEntityManager();
         return $em->getRepository(Usuario::class)->find($id);
     }
 
+    /**
+     * @return array Usuario
+     */
     public function findAll()
     {
         $em = $this->getEntityManager();
