@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Endereco;
+use App\Entity\ContratoLocacao;
+use App\Entity\ContratoAdm;
 
 /**
  * @ORM\Entity
@@ -43,11 +46,19 @@ class Imovel
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Endereco", inversedBy="imovel", cascade={"persist"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="id_endereco", referencedColumnName="id", unique=true)
+     * @ORM\JoinColumn(name="id_endereco", referencedColumnName="id", unique=true, nullable=false)
      */
     private $endereco;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoAdm", mappedBy="imovel")
+     */
+    private $contratoAdm;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoLocacao", mappedBy="imovel")
+     */
+    private $contratoLocacao;
 
     /**
      * @return mixed
@@ -161,13 +172,36 @@ class Imovel
         $this->endereco = $endereco;
     }
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="imovel")
-//     */
-//    private $contratoLocacao;
-//
-//    /**
-//     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="imovel")
-//     */
-//    private $contratoAdm;
+    /**
+     * @return mixed
+     */
+    public function getContratoAdm()
+    {
+        return $this->contratoAdm;
+    }
+
+    /**
+     * @param mixed $contratoAdm
+     */
+    public function setContratoAdm($contratoAdm): void
+    {
+        $this->contratoAdm = $contratoAdm;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContratoLocacao()
+    {
+        return $this->contratoLocacao;
+    }
+
+    /**
+     * @param mixed $contratoLocacao
+     */
+    public function setContratoLocacao($contratoLocacao): void
+    {
+        $this->contratoLocacao = $contratoLocacao;
+    }
+
 }

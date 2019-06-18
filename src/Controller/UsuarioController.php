@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Corretor;
 use App\Forms\UsuarioType;
 use App\Entity\Usuario;
+use App\Service\UsuarioService;
 use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -21,10 +22,9 @@ class UsuarioController extends AbstractController
 {
 
     /**
-     *@IsGranted("ROLE_ADMIN")
      * @Route("/usuario", name="usuario_novo")
      */
-    public function cadastroUsuario(Request $request)
+    public function cadastroUsuario(Request $request, UsuarioService $usuarioService)
     {
         $usuario = new Usuario();
         $form = $this->createForm(UsuarioType::class, $usuario);
@@ -32,11 +32,8 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();
-
-            return $this->redirectToRoute('index');
+            $usuarioService->salvar($usuario);
+            return $this->redirectToRoute('listar_usuarios');
         }
 
         return $this->render('usuario_cadastro.html.twig', [
@@ -47,21 +44,18 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/listar", name="listar_usuarios")
      */
-    public function listarUsuarios(Request $request)
+    public function listarUsuarios(UsuarioService $usuarioService)
     {
-        $user = new Corretor();
-        $user->setLogin('helio');
-        $user->setRoles([true ? 'ROLE_ADMIN' : 'ROLE_USER']);
+//        $user = new Corretor();
+//        $user->setLogin('helio');
+//        $user->setRoles([true ? 'ROLE_ADMIN' : 'ROLE_USER']);
+//
+//        $user->setPassword('ZkCCqGmNQXOeL1avsq2OWv2BSKLqHE33c2aolQ1nFxg');
+//        $em = $this->getDoctrine()->getManager();
+//        $em->persist($user);
+//        $em->flush();
 
-        $user->setPassword('ZkCCqGmNQXOeL1avsq2OWv2BSKLqHE33c2aolQ1nFxg');
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
-
-
-
-        $em = $this->getDoctrine()->getManager();
-        $usuarios = $em->getRepository(Usuario::class)->findAll();
+        $usuarios = $usuarioService->listarUsuarios();
 
         return $this->render('listar_usuarios.html.twig', [
             'usuarios' => $usuarios
@@ -71,10 +65,9 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/editar/{id}", name="editar_usuario")
      */
-    public function editarUsuario(int $id, Request $request)
+    public function editarUsuario(int $id, Request $request, UsuarioService $usuarioService)
     {
-        $em = $this->getDoctrine()->getManager();
-        $usuario = $em->getRepository(Usuario::class)->find($id);
+        $usuario = $usuarioService->findById($id);
 
         if (!$usuario) {
             throw new \Exception('Usuario não encontrado');
@@ -86,10 +79,7 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->merge($usuario);
-            $em->flush();
-
+            $usuarioService->editarUsuario($usuario);
             return $this->redirectToRoute('listar_usuarios');
         }
 
@@ -101,14 +91,11 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/deletar/{id}", name="deletar_usuario")
      */
-    public function deletarUsuario(int $id, Request $request)
+    public function deletarUsuario(int $id, Request $request, UsuarioService $usuarioService)
     {
-        $em = $this->getDoctrine()->getManager();
-        $usuario = $em->getRepository(Usuario::class)->find($id);
-        $em->remove($usuario);
-        $em->flush();
-        $this->addFlash('success', 'Usuario de id:'.$id.' deletado com sucesso!!!');
-
+        $usuario = $usuarioService->findById($id);
+        $usuarioService->removerUsuario($usuario);
+        $this->addFlash('success', 'Usuario de id:'.$id.' removido com sucesso!!!');
         return $this->redirectToRoute('listar_usuarios');
     }
 }
