@@ -22,6 +22,16 @@ class ImobiliariaController extends AbstractController
     }
 
     /**
+     * @Route("/index", name="index2")
+     */
+    public function index2()
+    {
+
+        return $this->render('index.html.twig');
+
+    }
+
+    /**
      * @Route("dashboard", name="dashboard")
      */
     public function dashboard()

@@ -21,4 +21,26 @@ class UsuarioService
         $this->usuarioRepository->salvar($usuario);
     }
 
+    public function listarUsuarios()
+    {
+        $usuarios = $this->usuarioRepository->listarTodos();
+        return $usuarios;
+    }
+
+    public function findById($id)
+    {
+        $usuario = $this->usuarioRepository->findById($id);
+        return $usuario;
+    }
+
+    public function editarUsuario(Usuario $usuario)
+    {
+        $this->usuarioRepository->editarUsuario($usuario);
+    }
+
+    public function removerUsuario(Usuario $usuario)
+    {
+        $this->usuarioRepository->removerUsuario($usuario);
+    }
+
 }

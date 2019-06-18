@@ -3,6 +3,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Endereco;
+use App\Entity\ContratoLocacao;
+use App\Entity\ContratoAdm;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsuarioRepository")
@@ -53,20 +55,32 @@ class Usuario
     private $endereco;
 
     /**
-//     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
-//     */
-//    private $contratoLocacao;
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoAdm", mappedBy="usuario")
+     */
+    private $contratoAdm;
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
-//     */
-//    private $contratoAdm;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoLocacao", mappedBy="usuario")
+     */
+    private $contratoLocacao;
 
     /**
      * @var string
      * @ORM\Column(type="string", name="tipo_usuario", nullable=true)
      */
     private $tipoUsuario;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=100, name="login", nullable=true)
+     */
+    private $login;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=100, name="senha", nullable=true)
+     */
+    private $senha;
 
     /**
      * @return mixed
@@ -243,4 +257,37 @@ class Usuario
     {
         $this->tipoUsuario = $tipoUsuario;
     }
+
+    /**
+     * @return string
+     */
+    public function getSenha(): string
+    {
+        return $this->senha;
+    }
+
+    /**
+     * @param string $senha
+     */
+    public function setSenha(string $senha): void
+    {
+        $this->senha = $senha;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogin(): string
+    {
+        return $this->login;
+    }
+
+    /**
+     * @param string $login
+     */
+    public function setLogin(string $login): void
+    {
+        $this->login = $login;
+    }
+
 }

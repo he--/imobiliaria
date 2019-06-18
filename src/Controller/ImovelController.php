@@ -3,12 +3,13 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Imovel;
+use App\Service\ImovelService;
 use App\Forms\ImovelType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class ImovelController extends AbstractController
 {
@@ -19,36 +20,29 @@ class ImovelController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function cadastroImovel(Request $request)
+    public function cadastroImovel(Request $request, ImovelService $imovelService)
     {
-
         $imovel = new Imovel();
         $form = $this->createForm(ImovelType::class, $imovel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             $imovel = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($imovel);
-            $em->flush();
-
-            return $this->redirectToRoute('index');
+            $imovelService->salvar($imovel);
+            return $this->redirectToRoute('listar_imoveis');
         }
 
         return $this->render('imovel_cadastro.html.twig', [
             'form' => $form->createView()
         ]);
-
     }
 
     /**
      * @Route("/imovel/listar", name="listar_imoveis")
      */
-    public function listarImoveis()
+    public function listarImoveis(ImovelService $imovelService)
     {
-        $em = $this->getDoctrine()->getManager();
-        $imoveis = $em->getRepository(Imovel::class)->findAll();
-
+        $imoveis = $imovelService->listarTodos();
         return $this->render('listar_imoveis.html.twig', [
             'imoveis' => $imoveis
         ]);
@@ -57,11 +51,9 @@ class ImovelController extends AbstractController
     /**
      * @Route("/imovel/portifolios", name="listar_portifolios")
      */
-    public function imoveisPortifolios()
+    public function imoveisPortifolios(ImovelService $imovelService)
     {
-        $em = $this->getDoctrine()->getManager();
-        $imoveis = $em->getRepository(Imovel::class)->findAll();
-
+        $imoveis = $imovelService->listarTodos();
         return $this->render('listar_portifolios.html.twig', [
             'imoveis' => $imoveis
         ]);
@@ -70,17 +62,48 @@ class ImovelController extends AbstractController
     /**
      * @Route("/imovel/visualizar/{id}", name="imovel_visualizar")
      */
-    public function imovelVisualizar(Request $request)
+    public function imovelVisualizar(Request $request, ImovelService $imovelService)
     {
         $id = $request->get('id');
-        $em = $this->getDoctrine()->getManager();
-        $imovel = $em->getRepository(Imovel::class)->find($id);
-
+        $imovel = $imovelService->findById($id);
         return $this->render('imovel_visualizar.html.twig', [
             'imovel' => $imovel
         ]);
     }
 
+    /**
+     * @Route("/imovel/remover/{id}", name="imovel_remover")
+     */
+    public function removerImovel(int $id, ImovelService $imovelService)
+    {
+        $imovel = $imovelService->findById($id);
+        $imovelService->remover($imovel);
+        $this->addFlash('success', 'Imóvel de id:'.$id.' removido com sucesso!!!');
+        return $this->redirectToRoute('listar_imoveis');
+    }
 
+    /**
+     * @Route("/imovel/editar/{id}", name="imovel_editar")
+     */
+    public function editarImovel(int $id, ImovelService $imovelService, Request $request)
+    {
+        $imovel = $imovelService->findById($id);
+        if (!$imovel) {
+            throw new \Exception('Imóvel não encontrado');
+        }
+        $form = $this->createForm(ImovelType::class, $imovel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $imovel = $form->getData();
+            $imovelService -> editar($imovel);
+            $this->addFlash('success', 'Imóvel de id:'.$id.' editado com sucesso!!!');
+            return $this->redirectToRoute('listar_imoveis');
+        }
+
+        return $this->render('imovel_cadastro.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 
 }
