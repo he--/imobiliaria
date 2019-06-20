@@ -2,29 +2,31 @@
 
 namespace App\Repository;
 
-use App\Entity\Usuario;
+use App\Entity\Imovel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class UsuarioRepository extends ServiceEntityRepository
+class ImovelRepository extends ServiceEntityRepository
 {
+
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Usuario::class);
+        parent::__construct($registry, Imovel::class);
     }
 
 
     /**
-     * @param Usuario $user
+     * @param Imovel $imovel
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
 
-    public function salvar(Usuario $user)
+    public function salvar(Imovel $imovel)
     {
         $em = $this->getEntityManager();
-        $em->persist($user);
+        $em->persist($imovel);
         $em->flush();
+
     }
 
     /**
@@ -32,14 +34,25 @@ class UsuarioRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-
     public function deletar(int $id)
     {
         $em = $this->getEntityManager();
-        $usuario = $em->getRepository(Usuario::class)->find($id);
-        $em->remove($usuario);
+        $imovel = $em->getRepository(Imovel::class)->find($id);
+        $em->remove($imovel);
         $em->flush();
     }
 
+    public function listar()
+    {
+        $em = $this->getEntityManager();
+        return $em->getRepository(Imovel::class)->findAll();
+    }
+
+    public function editar(Imovel $imovel)
+    {
+        $em = $this->getEntityManager();
+        $em->merge($imovel);
+        $em->flush();
+    }
 
 }

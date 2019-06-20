@@ -63,8 +63,8 @@ class ExceptionListener implements EventSubscriberInterface
      */
     private function handleException(Exception $exception)
     {
-        $this->container->get('session')->getFlashBag()->add('error', $exception->getMessage());
-        $this->saveLogger($exception);
+        //$this->container->get('session')->getFlashBag()->add('error', $exception->getMessage());
+        //$this->saveLogger($exception);
     }
 
     /**

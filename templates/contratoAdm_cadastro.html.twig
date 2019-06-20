@@ -1,0 +1,49 @@
+{% include 'base.html.twig' %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Cadastro de Contrato</h1>
+
+        {{ form_start(form) }}
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                {{ form_row(form.clausulaContratual) }}
+            </div>
+            <div class="col-sm-3">
+                {{ form_row(form.dtCadastro) }}
+            </div>
+        </div>
+
+        <h1 class="h3 mb-4 text-gray-800">Usuario</h1>
+        <div class="row">
+            <div class="col-sm-5">
+                {{ form_row(form.usuario) }}
+            </div>
+        </div>
+
+        <h1 class="h3 mb-4 text-gray-800">Imovel</h1>
+        <div class="row">
+            <div class="col-sm-5">
+                {{ form_row(form.imovel) }}
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-5">
+                <button class="btn btn-primary" type="submit">Cadastrar Imóvel</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- End of Main Content -->
+
+{% include "footer.html.twig" %}s

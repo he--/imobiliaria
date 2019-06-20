@@ -1,0 +1,59 @@
+{% include "base.html.twig" %}
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Lista de Contratos</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Data</th>
+                        <th>Clausula</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for contrato_adm in contrato_adms %}
+                    <tr>
+                        <td>{{ contrato_adm.id }}</td>
+                        <td>{{ contrato_adm.dtCadastro ? contrato_adm.dtCadastro|date('d/m/Y') : '' }}</td>
+                        <td>{{ contrato_adm.clausulaContratual }}</td>
+                        <td><a href="{{ path('contrato_adm_editar', { 'id': contrato_adm.id}) }}" class="btn btn-success btn-circle btn-sm">
+                                <i class="fas fa-check"></i>
+                            </a>
+                            <a href="{{ path('contrato_adm_delete', { 'id': contrato_adm.id}) }}" class="btn btn-danger btn-circle btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{{ path('contrato_adm_cadastro') }}">Novo Contrato</a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+    <!-- End of Main Content -->
+
+    {% include "footer.html.twig" %}
+
+
+

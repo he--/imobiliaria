@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ContratoAdm{% endblock %}
+
+{% block body %}
+    <h1>ContratoAdm</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contrato_adm.id }}</td>
+            </tr>
+            <tr>
+                <th>DtCadastro</th>
+                <td>{{ contrato_adm.dtCadastro ? contrato_adm.dtCadastro|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ClausulaContratual</th>
+                <td>{{ contrato_adm.clausulaContratual }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('contrato_adm_index') }}">back to list</a>
+
+    <a href="{{ path('contrato_adm_edit', {'id': contrato_adm.id}) }}">edit</a>
+
+    {{ include('contrato_adm/_delete_form.html.twig') }}
+{% endblock %}
+<!-- End of Main Content -->
+
+{% include "footer.html.twig" %}s

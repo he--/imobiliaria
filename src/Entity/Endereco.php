@@ -52,22 +52,22 @@ class Endereco
     private $uf;
 
     /**
-     * @ORM\Column(type="integer", length=9, nullable=true)
+     * @ORM\Column(type="string", length=9, nullable=true)
      */
     private $telefone;
 
     /**
-     * @ORM\Column(type="integer", name="ddd_telefone", length=2, nullable=true)
+     * @ORM\Column(type="string", name="ddd_telefone", length=2, nullable=true)
      */
     private $dddTelefone;
 
     /**
-     * @ORM\Column(type="integer", name="celular", length=9, nullable=true)
+     * @ORM\Column(type="string", name="celular", length=9, nullable=true)
      */
     private $celular;
 
     /**
-     * @ORM\Column(type="integer", name="ddd_celular", length=2, nullable=true)
+     * @ORM\Column(type="string", name="ddd_celular", length=2, nullable=true)
      */
     private $dddCelular;
 
