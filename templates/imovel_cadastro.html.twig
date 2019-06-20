@@ -6,15 +6,88 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-4 text-gray-800">Cadastro de Imóveis</h1>
 
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 {{ form_start(form) }}
-                {{ form_widget(form) }}
 
-                <input class="btn btn-success btn-icon-split" type="submit"/>
+                <div class="row">
+                        <div class="col-sm-5">
+                                {{ form_row(form.caracteristicas) }}
+                        </div>
+                        <div class="col-sm-1">
+                                {{ form_row(form.status) }}
+                        </div>
+                </div>
+
+        <div class="row">
+                <div class="col-sm-5">
+                        {{ form_row(form.observacao) }}
+                </div>
+                <div class="col-sm-1">
+                        {{ form_row(form.tipoImovel) }}
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-6">
+                        {{ form_row(form.dtCadastro) }}
+                </div>
+        </div>
+        <h1 class="h3 mb-4 text-gray-800">Endereço</h1>
+        <div class="row">
+                <div class="col-sm-5">
+                        {{ form_row(form.endereco.logradouro) }}
+                </div>
+                <div class="col-sm-1">
+                        {{ form_row(form.endereco.numero) }}
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-5">
+                        {{ form_row(form.endereco.bairro) }}
+                </div>
+                <div class="col-sm-3">
+                        {{ form_row(form.endereco.cep) }}
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-5">
+                        {{ form_row(form.endereco.cidade) }}
+                </div>
+                <div class="col-sm-3">
+                        {{ form_row(form.endereco.uf) }}
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-5">
+                        {{ form_row(form.endereco.complemento) }}
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-2">
+                        {{ form_row(form.endereco.dddTelefone) }}
+                </div>
+                <div class="col-sm-4">
+                        {{ form_row(form.endereco.telefone) }}
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-2">
+                        {{ form_row(form.endereco.dddCelular) }}
+                </div>
+                <div class="col-sm-4">
+                        {{ form_row(form.endereco.celular) }}
+                </div>
+        </div>
+
+        <div class="row">
+                <div class="col-sm-5">
+                        <button class="btn btn-primary" type="submit">Cadastrar Imóvel</button>
+                </div>
+        </div>
+
+</div>
 
                 {{ form_end(form) }}
 
-        </div>
+
 </div>
 
 <!-- End of Main Content -->

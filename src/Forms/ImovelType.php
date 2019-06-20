@@ -37,6 +37,9 @@ class ImovelType extends AbstractType
                     'Vistoria' => 'Vistoria',
                     'Sem Cotrato Adm' => 'Sem Cotrato Adm',
                     'Sem Contrato de Locação' => 'Sem Contrato de Locação'
+                ],
+                'attr' => [
+                    'style' => 'width: 250px'
                 ]
 
             ])
@@ -47,6 +50,7 @@ class ImovelType extends AbstractType
                 'label' => 'Observações Geral',
             ])
             ->add('tipoImovel', ChoiceType::class, [
+                'label' => 'Tipo',
                 'empty_data' => 'Casa',
                 'choices' => [
                     'Casa' => 'Casa',
@@ -55,6 +59,9 @@ class ImovelType extends AbstractType
                     'Terreno' => 'Terreno',
                     'Prédio Comercial' => 'Prédio Comercial',
                     'Loja em Shopping' => 'Loja em Shopping'
+                ],
+                'attr' => [
+                    'style' => 'width: 250px'
                 ]
             ])
             ->add('dtCadastro', DateType::class, [

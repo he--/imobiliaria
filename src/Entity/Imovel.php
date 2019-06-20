@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,16 @@ class Imovel
      * @ORM\JoinColumn(name="id_endereco", referencedColumnName="id", unique=true)
      */
     private $endereco;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoAdm", mappedBy="imovel")
+     */
+    private $contratosAdm;
+
+    public function __construct()
+    {
+        $this->contratosAdm = new ArrayCollection();
+    }
 
 
 
@@ -159,6 +171,37 @@ class Imovel
     public function setEndereco($endereco): void
     {
         $this->endereco = $endereco;
+    }
+
+    /**
+     * @return Collection|ContratoAdm[]
+     */
+    public function getContratosAdm(): Collection
+    {
+        return $this->contratosAdm;
+    }
+
+    public function addContratosAdm(ContratoAdm $contratosAdm): self
+    {
+        if (!$this->contratosAdm->contains($contratosAdm)) {
+            $this->contratosAdm[] = $contratosAdm;
+            $contratosAdm->setImovel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContratosAdm(ContratoAdm $contratosAdm): self
+    {
+        if ($this->contratosAdm->contains($contratosAdm)) {
+            $this->contratosAdm->removeElement($contratosAdm);
+            // set the owning side to null (unless already changed)
+            if ($contratosAdm->getImovel() === $this) {
+                $contratosAdm->setImovel(null);
+            }
+        }
+
+        return $this;
     }
 
 //    /**

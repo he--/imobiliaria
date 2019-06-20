@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Endereco;
 
@@ -52,7 +54,7 @@ class Usuario
      */
     private $endereco;
 
-    /**
+//    /**
 //     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
 //     */
 //    private $contratoLocacao;
@@ -67,6 +69,16 @@ class Usuario
      * @ORM\Column(type="string", name="tipo_usuario", nullable=true)
      */
     private $tipoUsuario;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoAdm", mappedBy="usuario")
+     */
+    private $contratosAdm;
+
+    public function __construct()
+    {
+        $this->contratosAdm = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -213,22 +225,6 @@ class Usuario
     }
 
     /**
-     * @return mixed
-     */
-    public function getContratoAdm()
-    {
-        return $this->contratoAdm;
-    }
-
-    /**
-     * @param mixed $contratoAdm
-     */
-    public function setContratoAdm($contratoAdm): void
-    {
-        $this->contratoAdm = $contratoAdm;
-    }
-
-    /**
      * @return string
      */
     public function getTipoUsuario(): ?string
@@ -242,5 +238,36 @@ class Usuario
     public function setTipoUsuario(string $tipoUsuario): void
     {
         $this->tipoUsuario = $tipoUsuario;
+    }
+
+    /**
+     * @return Collection|ContratoAdm[]
+     */
+    public function getContratosAdm(): Collection
+    {
+        return $this->contratosAdm;
+    }
+
+    public function addContratosAdm(ContratoAdm $contratosAdm): self
+    {
+        if (!$this->contratosAdm->contains($contratosAdm)) {
+            $this->contratosAdm[] = $contratosAdm;
+            $contratosAdm->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContratosAdm(ContratoAdm $contratosAdm): self
+    {
+        if ($this->contratosAdm->contains($contratosAdm)) {
+            $this->contratosAdm->removeElement($contratosAdm);
+            // set the owning side to null (unless already changed)
+            if ($contratosAdm->getUsuario() === $this) {
+                $contratosAdm->setUsuario(null);
+            }
+        }
+
+        return $this;
     }
 }
