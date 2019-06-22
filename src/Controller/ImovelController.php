@@ -80,6 +80,36 @@ class ImovelController extends AbstractController
             'imovel' => $imovel
         ]);
     }
+     /**
+     * @Route("/editar/{id}", name="editar_imovel")
+     */
+    public function editarImovel(int $id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $imovel = $em->getRepository(Imovel::class)->find($id);
+
+        if (!$imovel) {
+            throw new \Exception('Imovel não encontrado');
+        }
+
+        $form = $this->createForm(ImovelType::class, $imovel);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $imovel = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->merge($imovel);
+            $em->flush();
+
+            return $this->redirectToRoute('listar_imoveis');
+        }
+
+        return $this->render('imovel_cadastro.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
 
 
 
