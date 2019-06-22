@@ -32,9 +32,6 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-            // $em = $this->getDoctrine()->getManager();
-            // $em->persist($usuario);
-            // $em->flush();
             $usuarioService->salvar($usuario);
             return $this->redirectToRoute('index');
         }
@@ -70,7 +67,7 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/editar/{id}", name="editar_usuario")
      */
-    public function editarUsuario(int $id, Request $request)
+    public function editarUsuario(int $id, Request $request, UsuarioService $usuarioService)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository(Usuario::class)->find($id);
@@ -85,10 +82,7 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->merge($usuario);
-            $em->flush();
-
+            $usuarioService->editar($usuario);
             return $this->redirectToRoute('listar_usuarios');
         }
 
@@ -102,12 +96,11 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/deletar/{id}", name="deletar_usuario")
      */
-    public function deletarUsuario(int $id, Request $request)
+    public function deletarUsuario(int $id, Request $request, UsuarioService $usuarioService)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository(Usuario::class)->find($id);
-        $em->remove($usuario);
-        $em->flush();
+        $usuarioService->deletar($usuario);
         $this->addFlash('success', 'Usuario de id:'.$id.' deletado com sucesso!!!');
 
         return $this->redirectToRoute('listar_usuarios');
