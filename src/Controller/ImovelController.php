@@ -110,6 +110,20 @@ class ImovelController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("/deletar/{id}", name="deletar_imovel")
+     */
+    public function deletarImovel(int $id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $imovel = $em->getRepository(Imovel::class)->find($id);
+        $em->remove($imovel);
+        $em->flush();
+        $this->addFlash('success', 'Imovel de id:'.$id.' deletado com sucesso!!!');
+
+        return $this->redirectToRoute('listar_imoveis');
+    }
+
 
 
 
