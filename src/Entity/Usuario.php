@@ -52,11 +52,6 @@ class Usuario
      */
     private $endereco;
 
-    /**
-//     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
-//     */
-//    private $contratoLocacao;
-
 //    /**
 //     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
 //     */
