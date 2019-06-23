@@ -26,25 +26,25 @@ class ImovelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-//            ->setAction('../usuario')
+//            ->setAction('../imovel')
 //            ->setMethod('POST')
             ->add('status', ChoiceType::class, [
                 'label' => 'Status',
                 'choices' => [
-                    'Disponivel' => 'disponivel',
+                    'Disponível' => 'disponivel',
                     'Alugado' => 'alugado',
                     'Em Manutenção' => 'Em Manutenção',
-                    'Vistoria' => 'Vistoria',
+                    'Vistória' => 'Vistoria',
                     'Sem Cotrato Adm' => 'Sem Cotrato Adm',
                     'Sem Contrato de Locação' => 'Sem Contrato de Locação'
                 ]
 
             ])
             ->add('caracteristicas', TextType::class, [
-                'label' => 'Caracterisiticas do Imovel',
+                'label' => 'Características do Imóvel'
             ])
             ->add('observacao', TextType::class, [
-                'label' => 'Observações Geral',
+                'label' => 'Observações Gerais',
             ])
             ->add('tipoImovel', ChoiceType::class, [
                 'empty_data' => 'Casa',
