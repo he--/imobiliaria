@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\Date;
 
 /**
@@ -27,7 +28,7 @@ class UsuarioType extends AbstractType
 //            ->setAction('../usuario')
 //            ->setMethod('POST')
             ->add('nome', TextType::class, [
-                'label' => 'Nome',
+                'label' => 'Nome :',
             ])
             ->add('cpfCnpj', TextType::class, [
                 'label' => 'Cpf',
@@ -37,8 +38,14 @@ class UsuarioType extends AbstractType
                     'placeholder' => '_ _ _ . _ _ _ . _ _ _ - _ _'
                 ]
             ])
-            ->add('sexo', TextType::class, [
-                'label' => 'Sexto',
+            ->add('sexo', ChoiceType::class, [
+                'label' => 'Sexo:',
+                'choices' => [
+                    'Masculino' => 'Masculino',
+                    'Feminino' => 'Feminino',
+                    'Outro' => 'Outro'
+
+                ]
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',

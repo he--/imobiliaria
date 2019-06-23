@@ -2,41 +2,39 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Lista de Imovéis Cadastrados</h6>
+                        <h3 class="m-0 font-weight-bold text-primary">Lista de Imóveis</h3>
                 </div>
                 <div class="card-body">
-                        <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                        <tr>
-                                                <th>Status</th>
-                                                <th>Caracterisitcas</th>
-                                                <th>Observacao</th>
-                                                <th>Tipo do Imovel</th>
-                                                <th>Data Cadastro</th>
-                                                <th>Bairro</th>
-                                                <th>Rua</th>
-                                        </tr>
-                                        </thead>
-                                        <tfoot>
-                                        <tr>
-                                                <th>Status</th>
-                                                <th>Caracterisitcas</th>
-                                                <th>Observacao</th>
-                                                <th>Tipo do Imovel</th>
-                                                <th>Data Cadastro</th>
-                                                <th>Bairro</th>
-                                                <th>Rua</th>
-                                        </tr>
-                                        </tr>
-                                        </tfoot>
-                                        <tbody>
-                                        </tbody>
-                                         {% for imovel in imoveis %}
+                    {#                        <div class="table-responsive">#}
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                        <th>Status</th>
+                                        <th>Caracterisitcas</th>
+                                        <th>Observacao</th>
+                                        <th>Tipo do Imovel :</th>
+                                        <th>Dt Cadastro :</th>
+                                        <th>Bairro</th>
+                                        <th>Rua</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                        <th>Status</th>
+                                        <th>Caracterisitcas</th>
+                                        <th>Observacao</th>
+                                        <th>Tipo do Imovel :</th>
+                                        <th>Dt Cadastro :</th>
+                                        <th>Bairro</th>
+                                        <th>Rua</th>
+                                </tr>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for imovel in imoveis %}
                                         <tr>
                                                 <td>{{ imovel.status }}</td>
                                                 <td>{{ imovel.caracteristicas }}</td>
@@ -45,17 +43,22 @@
                                                 <td>{{ imovel.dtCadastro|date("m/d/Y") }}</td>
                                                 <td>{{ imovel.endereco.bairro }}</td>
                                                 <td>{{ imovel.endereco.logradouro }}</td>
-                                                <td><a href="#" class="btn btn-success btn-circle btn-sm">
+                                                <td><a href="{{ path('editarImovel', { 'id': imovel.id}) }}" class="btn btn-success btn-circle btn-sm">
                                                                 <i class="fas fa-check"></i>
-                                                        </a></td>
+                                                        </a>
+                                                        <a href="{{ path('deletarImovel', { 'id': imovel.id}) }}" class="btn btn-danger btn-circle btn-sm">
+                                                                <i class="fas fa-trash"></i>
+                                                        </a>
+                                                </td>
                                         </tr>
-                                        {% endfor %}
-                                </table>
-                        </div>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                    {#                        </div>#}
                 </div>
         </div>
 
-        </div>
+</div>
 </div>
 
 {#</div>#}
@@ -81,11 +84,6 @@
 <!-- End of Main Content -->
 
 {% include "footer.html.twig" %}s
-
-
-
-
-
 
 
 

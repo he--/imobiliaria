@@ -1,39 +1,42 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: Rikson
+ * Date: 18/06/2019
+ * Time: 06:07
+ */
 
 namespace App\Repository;
 
-use App\Entity\Usuario;
-use App\Forms\UsuarioType;
+use App\Entity\Imovel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
-use http\Env\Request;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class UsuarioRepository extends ServiceEntityRepository
+
+class ImovelRepository extends ServiceEntityRepository
 {
     /**
-     * UsuarioRepository constructor.
+     * ImovelRepository constructor.
      * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct( $registry, Usuario::class);
+        parent::__construct( $registry, Imovel::class);
 
     }
 
     /**
-     * @param Usuario $usuario
+     * @param Imovel $imovel
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function salvar(Usuario $usuario)
-    {
+    public function salvarImovel(Imovel $imovel){
         $em = $this->getEntityManager();
-        $em->persist($usuario);
-        $em->flush();
+        $em->persist($imovel);
+        $em->flush($imovel);
     }
 
     /**
@@ -41,24 +44,27 @@ class UsuarioRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function deletar(int $id){
+    public function deletar(int $id)
+    {
         $em = $this->getEntityManager();
-        $usuario = $em->getRepository(Usuario::class)->find($id);
-        $em->remove($usuario);
+        $imovel = $em->getRepository(Imovel::class)->find($id);
+        $em->remove($imovel);
         $em->flush();
-        return $this->redirectRoute('index');
     }
 
     /**
-     * @param Request $request
-     * @param Usuario $usuarioService
-     * @return mixed
+     * @param $id
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function editar(Usuario $usuarioService){
+    public function editar($id)
+    {
         $em = $this->getEntityManager();
-        $em->merge($usuarioService);
+        $imovel = $em->getRepository(Imovel::class)->find($id);
+        $em->merge($imovel);
         $em->flush();
     }
+
 }
 
 

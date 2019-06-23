@@ -53,16 +53,6 @@ class Usuario
     private $endereco;
 
     /**
-//     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
-//     */
-//    private $contratoLocacao;
-
-//    /**
-//     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
-//     */
-//    private $contratoAdm;
-
-    /**
      * @var string
      * @ORM\Column(type="string", name="tipo_usuario", nullable=true)
      */

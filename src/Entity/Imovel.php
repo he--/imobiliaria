@@ -47,8 +47,6 @@ class Imovel
      */
     private $endereco;
 
-
-
     /**
      * @return mixed
      */
