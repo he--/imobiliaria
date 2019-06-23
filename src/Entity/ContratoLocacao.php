@@ -37,7 +37,6 @@ class ContratoLocacao
      */
     private $dtLocacao;
     /**
-     * @ORM\Id
      * @ORM\Column(type="integer")     
      */
     private $duracaoEmMeses;

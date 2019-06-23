@@ -6,12 +6,19 @@ namespace App\Controller;
 
 use App\Entity\Imovel;
 use App\Forms\ImovelType;
+use App\Service\ImovelService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ImovelController extends AbstractController
 {
+    
+    private $imovelService;
+
+    public function __construct(ImovelService $imovelService){
+        $this->imovelService = $imovelService;
+    }
 
     /**
      * @Route("/imovel/cadastro", name="cadasto_imovel")
@@ -28,9 +35,10 @@ class ImovelController extends AbstractController
 
         if ($form->isSubmitted()) {
             $imovel = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($imovel);
-            $em->flush();
+            $this->imovelService->salvar($imovel);
+            //$em = $this->getDoctrine()->getManager();
+            //$em->persist($imovel);
+            //$em->flush();
 
             return $this->redirectToRoute('index');
         }
@@ -99,8 +107,8 @@ class ImovelController extends AbstractController
         if ($form->isSubmitted()) {
             $imovel = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->merge($imovel);
-            $em->flush();
+            //$em->merge($imovel);
+            //$em->flush();
 
             return $this->redirectToRoute('listar_imoveis');
         }
