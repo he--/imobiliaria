@@ -93,10 +93,8 @@ class ImovelController extends AbstractController
      */
     public function editarImovel(int $id, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        //$imovel = $em->getRepository(Imovel::class)->find($id);
-        $imovelParaEditar =  $this->imovelService->getById($id);
         
+        $imovelParaEditar =  $this->imovelService->getById($id);
 
         if (!$imovelParaEditar) {
             throw new \Exception('Imovel não encontrado');
@@ -109,11 +107,6 @@ class ImovelController extends AbstractController
         if ($form->isSubmitted()) {
             $imovelParaEditar = $form->getData();
             $this->imovelService->editar($imovelParaEditar);
-            
-           /*  $em = $this->getDoctrine()->getManager();
-            $em->merge($imovel);
-            $em->flush(); */
-
             return $this->redirectToRoute('listar_imoveis');
         }
 
