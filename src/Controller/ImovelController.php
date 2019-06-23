@@ -94,21 +94,25 @@ class ImovelController extends AbstractController
     public function editarImovel(int $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $imovel = $em->getRepository(Imovel::class)->find($id);
+        //$imovel = $em->getRepository(Imovel::class)->find($id);
+        $imovelParaEditar =  $this->imovelService->getById($id);
+        
 
-        if (!$imovel) {
+        if (!$imovelParaEditar) {
             throw new \Exception('Imovel não encontrado');
         }
 
-        $form = $this->createForm(ImovelType::class, $imovel);
+        $form = $this->createForm(ImovelType::class, $imovelParaEditar);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $imovel = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            //$em->merge($imovel);
-            //$em->flush();
+            $imovelParaEditar = $form->getData();
+            $this->imovelService->editar($imovelParaEditar);
+            
+           /*  $em = $this->getDoctrine()->getManager();
+            $em->merge($imovel);
+            $em->flush(); */
 
             return $this->redirectToRoute('listar_imoveis');
         }
@@ -122,13 +126,9 @@ class ImovelController extends AbstractController
      * @Route("/deletar/{id}", name="deletar_imovel")
      */
     public function deletarImovel(int $id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $imovel = $em->getRepository(Imovel::class)->find($id);
-        $em->remove($imovel);
-        $em->flush();
-        $this->addFlash('success', 'Imovel de id:'.$id.' deletado com sucesso!!!');
-
+    {     
+        $this->imovelService->deletar($id);       
+        $this->addFlash('success', 'Imovel de id:'.$id.' deletado com sucesso!!!'); 
         return $this->redirectToRoute('listar_imoveis');
     }
 

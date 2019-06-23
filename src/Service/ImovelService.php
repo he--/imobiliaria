@@ -26,8 +26,11 @@ class ImovelService
         $this->imovelRepository->editar($imovel);
     }
     
-    public function deletar(Imovel $imovel){
-        $this->imovelRepository->deletar($imovel);
+    public function deletar(int $id){
+        $this->imovelRepository->deletar($id);
+    }
+    public function getById(int $id){
+        return $this->imovelRepository->getById($id);
     }
     
 

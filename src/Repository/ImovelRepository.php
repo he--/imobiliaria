@@ -29,10 +29,16 @@ class ImovelRepository extends ServiceEntityRepository
         $em->flush();
     }
     
-    public function deletar(Imovel $imovel){
+    public function deletar(int $id){
         $em = $this->getEntityManager();
-        $em->remove($imovel);
+        $imovelParaDeletar = $em->getRepository(Imovel::class)->find($id);
+        $em->remove($imovelParaDeletar);
         $em->flush();
+    }
+
+    public function getById(int $id){
+        $em = $this->getEntityManager();
+        return $em->getRepository(Imovel::class)->find($id);
     }
     
 
