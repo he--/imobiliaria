@@ -161,10 +161,21 @@ class Imovel
         $this->endereco = $endereco;
     }
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="imovel")
-//     */
-//    private $contratoLocacao;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoLocacao", mappedBy="imovel")
+     */
+    //um imovel pode ser alugado várias vezes, logo terá vários contratos. Apenas um estará ativo
+   private $contratoLocacao;
+
+   public function setContratoLocao($contrato){
+       $this->contratoLocacao = $contrato;
+   }
+   public function getContratoLocao(){
+    return $this->contrato;
+}
+
+
+
 //
 //    /**
 //     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="imovel")

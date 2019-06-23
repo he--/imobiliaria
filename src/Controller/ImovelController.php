@@ -6,12 +6,19 @@ namespace App\Controller;
 
 use App\Entity\Imovel;
 use App\Forms\ImovelType;
+use App\Service\ImovelService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ImovelController extends AbstractController
 {
+    
+    private $imovelService;
+
+    public function __construct(ImovelService $imovelService){
+        $this->imovelService = $imovelService;
+    }
 
     /**
      * @Route("/imovel/cadastro", name="cadasto_imovel")
@@ -28,9 +35,10 @@ class ImovelController extends AbstractController
 
         if ($form->isSubmitted()) {
             $imovel = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($imovel);
-            $em->flush();
+            $this->imovelService->salvar($imovel);
+            //$em = $this->getDoctrine()->getManager();
+            //$em->persist($imovel);
+            //$em->flush();
 
             return $this->redirectToRoute('index');
         }
@@ -80,6 +88,43 @@ class ImovelController extends AbstractController
             'imovel' => $imovel
         ]);
     }
+     /**
+     * @Route("/editar/{id}", name="editar_imovel")
+     */
+    public function editarImovel(int $id, Request $request)
+    {
+        
+        $imovelParaEditar =  $this->imovelService->getById($id);
+
+        if (!$imovelParaEditar) {
+            throw new \Exception('Imovel não encontrado');
+        }
+
+        $form = $this->createForm(ImovelType::class, $imovelParaEditar);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $imovelParaEditar = $form->getData();
+            $this->imovelService->editar($imovelParaEditar);
+            return $this->redirectToRoute('listar_imoveis');
+        }
+
+        return $this->render('imovel_cadastro.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+     /**
+     * @Route("/deletar/{id}", name="deletar_imovel")
+     */
+    public function deletarImovel(int $id, Request $request)
+    {     
+        $this->imovelService->deletar($id);       
+        $this->addFlash('success', 'Imovel de id:'.$id.' deletado com sucesso!!!'); 
+        return $this->redirectToRoute('listar_imoveis');
+    }
+
 
 
 
