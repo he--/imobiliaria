@@ -55,12 +55,12 @@ class Usuario
     /**
 //     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
 //     */
-//    private $contratoLocacao;
+    private $contratoLocacao;
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
-//     */
-//    private $contratoAdm;
+    /**
+     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
+     */
+    private $contratoAdm;
 
     /**
      * @var string
