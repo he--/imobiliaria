@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Corretor;
 use App\Forms\UsuarioType;
 use App\Entity\Usuario;
+use App\Service\UsuarioService;
 use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -21,10 +22,9 @@ class UsuarioController extends AbstractController
 {
 
     /**
-     *@IsGranted("ROLE_ADMIN")
      * @Route("/usuario", name="usuario_novo")
      */
-    public function cadastroUsuario(Request $request)
+    public function cadastroUsuario(Request $request,  UsuarioService $usuarioService)
     {
         $usuario = new Usuario();
         $form = $this->createForm(UsuarioType::class, $usuario);
@@ -32,13 +32,9 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();
-
+            $usuarioService->salvar($usuario);
             return $this->redirectToRoute('index');
         }
-
         return $this->render('usuario_cadastro.html.twig', [
             'form' => $form->createView()
         ]);
@@ -71,7 +67,7 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/editar/{id}", name="editar_usuario")
      */
-    public function editarUsuario(int $id, Request $request)
+    public function editarUsuario(int $id, Request $request, UsuarioService $usuarioService)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository(Usuario::class)->find($id);
@@ -86,27 +82,25 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted()) {
             $usuario = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->merge($usuario);
-            $em->flush();
-
+            $usuarioService->editar($usuario);
             return $this->redirectToRoute('listar_usuarios');
         }
 
         return $this->render('usuario_cadastro.html.twig', [
             'form' => $form->createView()
         ]);
+
+        $clienteServico = $this->container->get('logger');
     }
 
     /**
      * @Route("/deletar/{id}", name="deletar_usuario")
      */
-    public function deletarUsuario(int $id, Request $request)
+    public function deletarUsuario(int $id, Request $request, UsuarioService $usuarioService)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository(Usuario::class)->find($id);
-        $em->remove($usuario);
-        $em->flush();
+        $usuarioService->deletar($usuario);
         $this->addFlash('success', 'Usuario de id:'.$id.' deletado com sucesso!!!');
 
         return $this->redirectToRoute('listar_usuarios');
