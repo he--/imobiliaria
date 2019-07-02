@@ -42,7 +42,7 @@ class Endereco
     private $complemento;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $cidade;
 

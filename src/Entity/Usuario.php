@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Endereco;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UsuarioRepository")
  */
 class Usuario
 {
@@ -51,16 +51,6 @@ class Usuario
      * @ORM\JoinColumn(name="id_endereco", referencedColumnName="id", unique=true, nullable=true)
      */
     private $endereco;
-
-    /**
-//     * @ORM\OneToMany(targetEntity="Entity\contratoLocacao", mappedBy="usuario")
-//     */
-//    private $contratoLocacao;
-
-//    /**
-//     * @ORM\OneToMany(targetEntity="Entity\ContratoAdm", mappedBy="usuario")
-//     */
-//    private $contratoAdm;
 
     /**
      * @var string
