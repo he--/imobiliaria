@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Imovel;
 use App\Forms\ImovelType;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,9 +29,10 @@ class ImovelController extends AbstractController
 
         if ($form->isSubmitted()) {
             $imovel = $form->getData();
+            /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $em->persist($imovel);
-            $em->flush();
+            $em->flush($imovel);
 
             return $this->redirectToRoute('index');
         }

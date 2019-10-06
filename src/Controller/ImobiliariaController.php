@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -9,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  * Class ImobiliariaController
  * @package App\Controller
  */
-class ImobiliariaController extends AbstractController
+class ImobiliariaController extends Controller
 {
     /**
      * @Route("/", name="index")
