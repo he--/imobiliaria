@@ -1,9 +1,10 @@
 # imobiliaria
 
 Requeriments
-	•	Install PHP 7.2.5 or higher and these PHP extensions (which are installed and enabled by default in most PHP 7 installations): Ctype, iconv, JSON, PCRE, Session, SimpleXML, and Tokenizer;
-	•	Install Composer, which is used to install PHP packages;
-	•	Install Symfony, which creates in your computer a binary called symfony that provides all the tools you need to develop your application locally.
+
+	• Install PHP 7.2.5 or higher and these PHP extensions (which are installed and enabled by default in most PHP 7 installations): Ctype, iconv, JSON, PCRE, Session, SimpleXML, and Tokenizer;
+	• Install Composer, which is used to install PHP packages;
+	• Install Symfony, which creates in your computer a binary called symfony that provides all the tools you need to develop your application locally.
 
 How to run
 1. Clone the repository.
